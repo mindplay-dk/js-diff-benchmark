@@ -7,6 +7,7 @@ const microtime = require('microtime');
 const document = require('./dommy.js');
 
 const libs = [
+  'mine',
   'heckel',
   'stage0',
   'spect',
