@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JS Diff Benchmark</title>
-  <script>window.module = {};</script>
+  <script src="https://unpkg.com/seedrandom@3.0.5/seedrandom.min.js"></script>
+  <script>
+    Math.seedrandom("makes Math.random() predictable globally - derandomizes code for testing");
+    window.module = {};
+  </script>
   <style>
     body {
       font-family: sans-serif;
