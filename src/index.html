@@ -6,7 +6,7 @@
   <title>JS Diff Benchmark</title>
   <script src="https://unpkg.com/seedrandom@3.0.5/seedrandom.min.js"></script>
   <script>
-    Math.seedrandom("makes Math.random() predictable globally - derandomizes code for testing");
+    //Math.seedrandom("makes Math.random() predictable globally - derandomizes code for testing");
     window.module = {};
   </script>
   <style>
@@ -67,7 +67,7 @@
       'list-difference',
       'snabbdom',
       'udomdiff',
-    ];
+    ].slice().sort(() => Math.random() - Math.random());;
 
     const cols = [
       '',
@@ -103,10 +103,14 @@
 
 
     const table = [];
+    let allData = {};
+    let data;
 
     while (libs.length) {
-
       const lib = libs.shift();
+
+      data = [];
+      allData[lib] = data;
 
       const libResults = [];
       table.push({ [lib.slice(0, 8)]: libResults });
@@ -216,6 +220,7 @@
       const stop = (count, operationMax) => {
         const end = performance.now() - begin;
         const delta = count - operationMax;
+        data.push(end);
         libResults.push(`${end.toPrecision(2)}ms
         <span class="count">${count}</span><span class="delta">${
           count > operationMax
@@ -391,6 +396,16 @@
         tr.appendChild(document.createElement('td')).innerHTML = value;
       });
     });
+
+    let allResults = JSON.parse(localStorage.getItem("results") || '[]').concat(allData);
+
+    localStorage.setItem("results",JSON.stringify(allResults));
+
+    await wait(50);
+
+    if (allResults.length < 200) {
+      location.reload();
+    }
 
   });
   </script>
